@@ -1,0 +1,171 @@
+Sub stock_ticker_analysis()
+
+
+' Creating loop through the sheets in the work book
+
+
+For Each ws In Worksheets
+
+
+' Set an initial variables to be reported and used in the calculations: Ticker label
+    ' Open_value is the open value of ticker on first day of trade and Close_Value the close valu on the last day of trade
+    ' Ticker_volume is te total volume traded
+    ' Annual_Change is the difference between Close_Value and Open_Value
+    ' Annual_Percent is the % of change of he close and open value for the ticker
+ 
+        Dim Ticker_Name As String
+        Dim Open_Value, Close_Value, Ticker_Volume As Double  ' Open_value is the open value of ticker on first day of trade
+        Dim Annual_Change, Annual_Percent, Percent_Increase, Percent_Decrease, Large_Volume As Double
+
+' Set variables to detect top and bottom row number for each ticker
+    Dim Top_Row, Bottom_Row As Double
+  
+' Determine the Last Row
+        lastrow = ws.Cells(Rows.Count, 1).End(xlUp).Row
+
+
+' Set an initial variable for holding the total volume trade for the ticker
+    Ticker_Volume = 0
+
+' Keep track of the location for ticker in the ticker summary table
+    Dim Summary_Table_Row As Integer
+    Summary_Table_Row = 2
+    
+' Setting headers for ticker summary table
+    ws.Range("I1").Value = "Ticker"
+    ws.Range("J1").Value = "Yearly Change"
+    ws.Range("K1").Value = "Percent Change"
+    ws.Range("L1").Value = "Total Stock Volume"
+    ws.Range("H1:L1").HorizontalAlignment = xlCenter
+    ws.Columns("I:L").AutoFit
+    
+'Setting top row for the first ticker in the list
+    Top_Row = 2
+'----------------------------------------------------------------------------------------------------
+' First part: Generating summary table for each ticker with their annual difference, yearly percentage and total volume traded   
+   
+  ' Loop through all the tickers
+  For i = Top_Row To lastrow
+
+    
+    ' Set and print ticker name and  open value in the opening table
+            Ticker_Name = ws.Cells(Top_Row, 1)
+            Open_Value = ws.Cells(Top_Row, 3).Value
+            ws.Range("I" & Summary_Table_Row).Value = Ticker_Name
+        
+
+
+    ' Check if we are still within the same ticker label and determine the botton row and close value for the ticker
+    
+            If ws.Cells(i + 1, 1).Value <> ws.Cells(i, 1).Value Then
+            ' Calculating total trade volume
+            
+            Bottom_Row = i
+            Close_Value = ws.Cells(Bottom_Row, 6)
+    
+            Ticker_Volume = ws.Application.WorksheetFunction.Sum(Range(Cells(Top_Row, 7), Cells(Bottom_Row, 7)))
+            
+            
+                ' Print total volume traded in summary table
+                ws.Range("L" & Summary_Table_Row).Value = Ticker_Volume
+  
+      
+    ' Calculating annual difference and print/format values in summary table. Green selected for positive difference, red for negative difference and no color for no difference
+
+        Annual_Change = Close_Value - Open_Value
+        ws.Range("J" & Summary_Table_Row).Value = Annual_Change
+        
+                'Formating cells with annual differnc values:  green (positive), red (negative) and setting decimals number
+                If (ws.Range("J" & Summary_Table_Row).Value > 0) Then
+                ws.Range("J" & Summary_Table_Row).Interior.ColorIndex = 4
+                ws.Range("J" & Summary_Table_Row).NumberFormat = "0.000000000"
+                
+                ElseIf (ws.Range("J" & Summary_Table_Row).Value < 0) Then
+                ws.Range("J" & Summary_Table_Row).Interior.ColorIndex = 3
+                ws.Range("J" & Summary_Table_Row).NumberFormat = "0.000000000"
+                
+                End If
+                
+        ' Calculating annual % of change and print values in summary table
+            
+                ' Checking for possible errors for annual percentage changes
+                If (Open_Value <> 0 And Close_Value <> 0) Then
+                Annual_Percent = (Close_Value - Open_Value) / Open_Value
+                ws.Range("K" & Summary_Table_Row).Value = Annual_Percent
+                ws.Range("K" & Summary_Table_Row).NumberFormat = "0.00%"
+            
+                    ElseIf (Open_Value = 0 And Close_Value = 0) Then
+                    Annual_Percent = 0#
+                    ws.Range("K" & Summary_Table_Row).Value = Annual_Percent
+                    ws.Range("K" & Summary_Table_Row).NumberFormat = "0.00%"
+
+                    
+                Else
+
+                
+                End If
+
+      ' Add one to the summary table row
+      Summary_Table_Row = Summary_Table_Row + 1
+      
+      ' Reset the top row for the next ticker
+      Top_Row = Bottom_Row + 1
+
+    ' If the cell immediately following a row is the same brand...
+    Else
+
+    End If
+
+  Next i
+  
+'---------------------------------------------------------------------------------------------------------
+' Second part: Generating best/worst ticker performers summary table
+
+' Keep track of the location for ticker in the ticker summary table
+    Dim Summary_Table2_Row As Integer
+    Summary_Table2_Row = 2
+
+
+' Setting headers  and row labels for best/worst performers table
+    ws.Range("P1").Value = "Ticker"
+    ws.Range("Q1").Value = "Value"
+    ws.Range("O2").Value = "Greatest % Increase"
+    ws.Range("O3").Value = "Greatest % Decrease"
+    ws.Range("O4").Value = "Greatest Total Volume"
+    ws.Range("O1:Q1").HorizontalAlignment = xlCenter
+    ws.Columns("O:Q").AutoFit
+
+' Determine the last row of the ticker summary table
+        lastrow = ws.Cells(Rows.Count, 9).End(xlUp).Row
+
+'Find the required greatest % increase in the year and print the ticker and value
+
+Percent_Increase = ws.Application.WorksheetFunction.Max(Range(ws.Cells(Summary_Table2_Row, 11), ws.Cells(lastrow, 11)))
+ws.Range("Q" & Summary_Table2_Row).Value = Percent_Increase
+ws.Range("Q" & Summary_Table2_Row).NumberFormat = "0.00%"
+Match_Row = ws.Application.WorksheetFunction.Match(Percent_Increase, Range(ws.Cells(3, 11), ws.Cells(lastrow, 11)), 0)
+ws.Range("P" & Summary_Table2_Row).Value = ws.Cells(Match_Row + 1, 9)
+
+
+' Find the required greatest % increase in the year and print the ticker and value
+
+Percent_Decrease = ws.Application.WorksheetFunction.Min(Range(ws.Cells(Summary_Table2_Row, 11), ws.Cells(lastrow, 11)))
+ws.Range("Q" & Summary_Table2_Row + 1).Value = Percent_Decrease
+ws.Range("Q" & Summary_Table2_Row + 1).NumberFormat = "0.00%"
+Match_Row = ws.Application.WorksheetFunction.Match(Percent_Decrease, Range(ws.Cells(Summary_Table2_Row, 11), ws.Cells(lastrow, 11)), 0)
+ws.Range("P" & Summary_Table2_Row + 1).Value = ws.Cells(Match_Row + 1, 9)
+
+' Find the required greatest large volume traded in the year and print the ticker and value
+
+Large_Volume = ws.Application.WorksheetFunction.Max(Range(ws.Cells(Summary_Table2_Row, 12), ws.Cells(lastrow, 12)))
+ws.Range("Q" & Summary_Table2_Row + 2).Value = Large_Volume
+Match_Row = ws.Application.WorksheetFunction.Match(Large_Volume, Range(ws.Cells(Summary_Table2_Row, 12), ws.Cells(lastrow, 12)), 0)
+ws.Range("P" & Summary_Table2_Row + 2).Value = ws.Cells(Match_Row + 1, 9)
+
+Next ws
+
+End Sub
+
+
+
+

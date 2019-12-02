@@ -1,0 +1,85 @@
+﻿-- Exported from QuickDBD: https://www.quickdatabasediagrams.com/
+-- Link to schema: https://app.quickdatabasediagrams.com/#/d/MDfIdn
+-- NOTE! If you have used non-SQL datatypes in your design, you will have to change these here.
+
+-- Modify this code to update the DB schema diagram.
+-- To reset the sample schema, replace everything with
+-- two dots ('..' - without quotes).
+
+CREATE TABLE "Employees" (
+    "employ_id" INT   NOT NULL,
+    "birth_date" DATE   NOT NULL,
+    "first_name" VARCHAR   NOT NULL,
+    "last_name" VARCHAR   NOT NULL,
+    "gender" VARCHAR(1)   NOT NULL,
+    "hire_date" DATE   NOT NULL,
+    CONSTRAINT "pk_Employees" PRIMARY KEY (
+        "employ_id"
+     )
+);
+
+CREATE TABLE "Departments" (
+    "dept_id" SERIAL   NOT NULL,
+    "dept_no" VARCHAR   NOT NULL,
+    "dept_name" VARCHAR   NOT NULL,
+    CONSTRAINT "pk_Departments" PRIMARY KEY (
+        "dept_id"
+     )
+);
+
+CREATE TABLE "Department_Employee" (
+    "dept_employee_id" SERIAL   NOT NULL,
+    "employ_id" INT   NOT NULL,
+    "dept_no" VARCHAR   NOT NULL,
+    "start_date_dpt" DATE   NOT NULL,
+    "end_date_dpt" DATE   NOT NULL,
+    CONSTRAINT "pk_Department_Employee" PRIMARY KEY (
+        "dept_employee_id"
+     )
+);
+
+CREATE TABLE "Salaries" (
+    "salary_id" SERIAL   NOT NULL,
+    "employ_id" INT   NOT NULL,
+    "salary" INT   NOT NULL,
+    "start_date_salary" DATE   NOT NULL,
+    "end_date_salary" DATE   NOT NULL,
+    CONSTRAINT "pk_Salaries" PRIMARY KEY (
+        "salary_id"
+     )
+);
+
+CREATE TABLE "Department_Managers" (
+    "dept_manager_id" SERIAL   NOT NULL,
+    "dept_no" VARCHAR   NOT NULL,
+    "employ_id" INT   NOT NULL,
+    "start_date_manager" DATE   NOT NULL,
+    "end_date_manager" DATE   NOT NULL,
+    CONSTRAINT "pk_Department_Managers" PRIMARY KEY (
+        "dept_manager_id"
+     )
+);
+
+CREATE TABLE "Position_title" (
+    "position_id" SERIAL   NOT NULL,
+    "employ_id" INT   NOT NULL,
+    "title_name" VARCHAR   NOT NULL,
+    "start_date_position" DATE   NOT NULL,
+    "end_date_position" DATE   NOT NULL,
+    CONSTRAINT "pk_Position_title" PRIMARY KEY (
+        "position_id"
+     )
+);
+
+ALTER TABLE "Department_Employee" ADD CONSTRAINT "fk_Department_Employee_employ_id" FOREIGN KEY("employ_id")
+REFERENCES "Employees" ("employ_id");
+
+ALTER TABLE "Salaries" ADD CONSTRAINT "fk_Salaries_employ_id" FOREIGN KEY("employ_id")
+REFERENCES "Employees" ("employ_id");
+
+ALTER TABLE "Department_Managers" ADD CONSTRAINT "fk_Department_Managers_employ_id" FOREIGN KEY("employ_id")
+REFERENCES "Employees" ("employ_id");
+
+ALTER TABLE "Position_title" ADD CONSTRAINT "fk_Position_title_employ_id" FOREIGN KEY("employ_id")
+REFERENCES "Employees" ("employ_id");
+

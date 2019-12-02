@@ -1,0 +1,178 @@
+-- Question # 1
+-- Create a query to generate an employee list with the following information
+-- employee number, last name, first name, gender and salary
+
+SELECT E.employ_id as "Employee Number", E.last_name as "Employee Last Name", E.first_name as "Employee First Name", 
+	CASE
+	WHEN E.gender = 'F' then 'Female'
+	WHEN E.gender = 'M' then 'Male'
+	END AS "Gender", 
+	CONCAT ('$', ' ', S.salary) as "Salary"
+FROM PUBLIC."Employees" E
+	INNER JOIN
+	PUBLIC."Salaries" S
+	ON E.employ_id = S.employ_id
+ORDER BY S.salary DESC;
+
+-- Question # 2
+-- Create a query to generate a list of employees hired in 1986
+SELECT E.employ_id as "Employee Number", E.last_name as "Employee Last Name", E.first_name as "Employee First Name", 
+	CASE
+	WHEN E.gender = 'F' then 'Female'
+	WHEN E.gender = 'M' then 'Male'
+	END AS "Gender", 
+	CONCAT ('$', ' ', S.salary) as "Salary",
+	E.hire_date as "Hire Date"
+FROM PUBLIC."Employees" E
+	INNER JOIN
+	PUBLIC."Salaries" S
+	ON E.employ_id = S.employ_id
+WHERE e.hire_date BETWEEN '1986-01-01' AND '1986-12-31'
+ORDER BY e.hire_date ASC;
+
+-- Question # 3
+-- Create a query to generate a list with the manager of each department with the following information:
+-- department number, department name, the manager's employee number, last name, first name, and start and end employment dates.
+
+SELECT DM.dept_no as "Department Number", D.dept_name as "Department Name",DM.employ_id as "Employee Number", 
+	E.last_name as "Manager Last Name", E.first_name as "Manager First Name", DM.start_date_manager as "Start Employment Date",
+	DM.end_date_manager as "End Employment Date"
+FROM PUBLIC."Department_Managers" DM
+	INNER JOIN
+	PUBLIC."Departments" D
+	ON DM.dept_no = D.dept_no
+	
+	LEFT JOIN
+	PUBLIC."Employees" E
+	ON DM.employ_id = E.employ_id
+	
+ORDER BY DM.dept_no ASC;
+
+-- Question # 4
+-- Create a query to generate a list with the employees of each department with the following information:
+-- employee number, last name, first name, and department name.
+
+SELECT DE.employ_id as "Employee Number", 
+	E.last_name as "Employee Last Name", E.first_name as "Employee First Name", D.dept_name as "Department Name"
+FROM PUBLIC."Department_Employee" DE
+	LEFT JOIN
+	PUBLIC."Departments" D
+	ON DE.dept_no = D.dept_no
+	
+	LEFT JOIN
+	PUBLIC."Employees" E
+	ON DE.employ_id = E.employ_id
+	
+ORDER BY DE.employ_id ASC;
+
+-- Question # 5
+-- Create a query to generate a list with all employees whose first name is "Hercules" and last names begin with "B.":
+
+
+SELECT E.employ_id as "Employee Number", E.last_name as "Employee Last Name", E.first_name as "Employee First Name", 
+	CASE
+	WHEN E.gender = 'F' then 'Female'
+	WHEN E.gender = 'M' then 'Male'
+	END AS "Gender"
+FROM PUBLIC."Employees" E
+WHERE E.first_name = 'Hercules' and E.last_name like ('B%');
+
+-- Question # 6
+-- Create a query to generate a list all employees in the Sales department, including:
+-- their employee number, last name, first name, and department name.
+
+
+SELECT DE.employ_id as "Employee Number",  E.last_name as "Employee Last Name", E.first_name as "Employee First Name", 
+	   D.dept_name as "Department Name"
+FROM PUBLIC."Department_Employee" DE
+
+	LEFT JOIN
+	PUBLIC."Departments" D
+	ON DE.dept_no = D.dept_no
+	
+	LEFT JOIN
+	PUBLIC."Employees" E
+	ON DE.employ_id = E.employ_id
+
+WHERE DE.dept_no IN (
+		SELECT dept_no
+		FROM PUBLIC."Departments" D
+		WHERE dept_name = 'Sales');
+
+ORDER BY DE.employ_id
+
+-- Question # 7
+-- Create a query to generate a list all employees in the Sales and Development departments, including:
+-- their employee number, last name, first name, and department name.
+
+
+SELECT DE.employ_id as "Employee Number",  E.last_name as "Employee Last Name", E.first_name as "Employee First Name", 
+	   D.dept_name as "Department Name"
+FROM PUBLIC."Department_Employee" DE
+
+	LEFT JOIN
+	PUBLIC."Departments" D
+	ON DE.dept_no = D.dept_no
+	
+	LEFT JOIN
+	PUBLIC."Employees" E
+	ON DE.employ_id = E.employ_id
+
+WHERE DE.dept_no IN (
+		SELECT dept_no
+		FROM PUBLIC."Departments" D
+		WHERE (dept_name = 'Sales' OR dept_name = 'Development'))
+
+ORDER BY DE.employ_id;
+
+-- Question # 8
+-- Create a query to generate, descending order, list the frequency count of employee last names, 
+-- i.e., how many employees share each last name
+
+
+SELECT E.last_name as "Employee Last Name", COUNT(E.employ_id) as "Frequency"
+FROM PUBLIC."Employees" E
+GROUP by E.last_name
+ORDER BY COUNT(E.employ_id) DESC;
+
+
+
+-- Bonus question
+-- Create a query to generate, ascending order, list the frequency count of employee last names, 
+-- i.e., how many employees share each last name
+
+SELECT E.last_name as "Employee Last Name", COUNT(E.employ_id) as "Frequency"
+FROM PUBLIC."Employees" E
+GROUP by E.last_name
+ORDER BY COUNT(E.employ_id) ASC
+LIMIT 5;
+
+-- One last name had only one occurrence: Foolsday
+-- Retrieving data for employee in question
+-- The result is employ 499942 April Foolsday
+SELECT E.employ_id, E.last_name, E.first_name, E.birth_date, PT.title_name, D.dept_name, S.salary
+FROM PUBLIC."Employees" E
+
+	LEFT JOIN
+	PUBLIC."Salaries" S
+	ON E.employ_id = S.employ_id
+
+	LEFT JOIN
+	PUBLIC."Position_title" PT
+	ON E.employ_id = PT.employ_id
+
+	LEFT JOIN
+	PUBLIC."Department_Employee" DE
+	ON E.employ_id = DE.employ_id
+
+	LEFT JOIN
+	PUBLIC."Departments" D
+	ON DE.dept_no = D.dept_no
+
+WHERE E.last_name = 'Foolsday';
+
+
+
+
+
+

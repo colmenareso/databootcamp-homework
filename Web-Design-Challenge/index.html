@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+​
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+​
+    <title>Bootstrap Web Design Dashboard- Introduction</title>
+​
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+	<link rel="stylesheet" type="text/css" href="style.css">
+​
+  </head>
+​
+  <body>
+    <!-- Start of navbar -->
+	<div class="navigation">
+	  <nav class="navbar fixed-top navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="index.html">Weather Trends</a>
+        <button class="navbar-toggler border" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+​
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="navbarDropdownMenuLink" role="button" aria-haspopup="true" aria-expanded="false">Plots</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="temperature.html">Temperature</a>
+                <a class="dropdown-item" href="humidity.html">Humidity</a>
+                <a class="dropdown-item" href="cloudiness.html">Cloudiness</a>
+                <a class="dropdown-item" href="wind speed.html">Wind Speed</a>
+              </div>
+            </li>
+            <li class="nav-item">
+			  <a class="nav-link" href="comparison.html">Comparison</a>
+			</li>
+            <li class="nav-item">
+			  <a class="nav-link" href="data.html">Data</a>
+			</li>
+          </ul>
+        </div>
+      </nav>
+	</div>
+    <!-- End of navbar -->
+​
+  <!-- Start of container -->
+    <div class="container">
+      <section class="row">
+        <div class="col-lg-7 col-md-12">
+          <div class="description-content">
+            <h1 class="description-header">Introduction</h1>
+            <hr>
+            <img src="Resources/assets/images/Temperature vs. Latitude.png" alt="Latitude vs. Max Temperature" class="description-image">
+            <p>The purposes of this project were:</p>
+			<ol>
+			<li>To develop the logic and syntax to pull data from the OpenWeatherMap API to assemble a dataset of <strong>552</strong> weather stations on <strong><em>Dec. 22, 2019</em></strong></li>
+			<br>
+			<li>To analyze how weather parameters (temperature, humidity, % of cloudiness and wind speed) change or varies with latitude </li>
+			</ol>
+            <p>As part of the analysis, we first get an overall view of the number of stations and average metrics by latitudinal zones:</p>
+			<table border = 1>
+				<tr>
+					<th>Latitude zone</th>
+					<th>Latitude Range</th>
+					<th># of stations</th>
+					<th>Avg. Temperature (&degFarenheit)</th>
+					<th>Avg. Humidity</th>
+					<th>Avg. Cloudiness</th>
+					<th>Average Wind Speed (mph)</th>
+			</tr>
+			<tr>
+			<td>Arctic</td>
+			<td> >65&deg N</td>
+			<td>40</td>
+			<td>1.06&degF</td>
+			<td>83.50%</td>
+			<td>68.32%</td>
+			<td>8.67</td>
+			</tr>
+			<tr>
+			<td>North Temperate</td>
+			<td>23.55&deg - 65&deg N</td>
+			<td>245</td>
+			<td>32.01&degF</td>
+			<td>76.83%</td>
+			<td>54.06%</td>
+			<td>8.02</td>
+			</tr>
+			<tr>
+			<td>Trop. of Cancer</td>
+			<td>0&deg - 230&deg N</td>
+			<td>98</td>
+			<td>76.15&degF</td>
+			<td>62.04%</td>
+			<td>48.17%</td>
+			<td>9.30</td>
+			</tr>
+			<tr>
+			<td>Trop. of Capricorn</td>
+			<td>0&deg - 23&deg S</td>
+			<td>95</td>
+			<td>76.69&degF</td>
+			<td>78.74%</td>
+			<td>69.45%</td>
+			<td>6.70</td>
+			<tr>
+			<td>South Temperate</td>
+			<td>23.55&deg - 65&deg S</td>
+			<td>74</td>
+			<td>65.30&deg F</td>
+			<td>62.81%</td>
+			<td>42.74%</td>
+			<td>9.60</td>
+			</tr>
+			<tr>
+			<td>Antarctic</td>
+			<td> >65&deg S</td>
+			<td>0</td>
+			<td>-</td>
+			<td>-</td>
+			<td>-</td>
+			<td>-</td>
+			</tr>
+			</table>
+			<p>
+			<ol>
+			<li>The number of stations in the northern hemisphere is significantly higher in the northern hemisphere (383) than in the southern hemisphere (169)</li>
+			<li>There are no stations in the Antarctic region</li>
+			</ol>
+          </div>
+        </div>
+        <div class="col-lg-5 col-md-12">
+​
+          <!-- Start of Visualizations imageNav Area -->
+          <section id="imageNav-area">
+            <div class="imageNav-content">
+              <h2 class="imageNav-header">Visualizations</h2>
+              <hr />
+              <div class="container">
+			    <div class="row">
+				  <div class="col-6">
+                    <a href="temperature.html">
+				      <img src="Resources/assets/images/Temperature vs. Latitude.png" alt="Temperature vs. Latitude", title="Temperature vs. Latitude" class="imageNav-photo">
+				    </a>
+				  </div>
+				  <div class="col-6">
+                    <a href="humidity.html">
+				      <img src="Resources/assets/images/Humidity vs. Latitude.png" alt="Humidity vs. Latitude", title="Humidity vs. Latitude" class="imageNav-photo">
+			        </a>
+                    </div>
+				  <div class="col-6">
+                    <a href="cloudiness.html">
+				      <img src="Resources/assets/images/Cloudiness  vs. Latitude.png" alt="Cloudiness vs. Latitude", title="Cloudiness vs. Latitude", class="imageNav-photo">
+				    </a>
+				  </div>
+				  <div class="col-6">
+                    <a href="wind speed.html">
+				      <img src="Resources/assets/images/Wind Speed vs. Latitude.png" alt="Wind Speed vs. Latitude", title="Wind Speed vs. Latitude", class="imageNav-photo">
+				    </a>
+				  </div>
+                </div>
+			  </div>
+            </div>
+          </section>
+          <!-- End of the Visualizations imageNav Area -->
+​
+        </div>
+      </section>
+    </div>
+    <!-- End of container -->
+​
+    <!-- Start of footer -->
+    <footer>
+      <div class="footer">
+	  &copy; Omar Colmenares 2020 (Web design modified from &copy; Copyright dbautista 2019. For futher details, please access
+	  <a href="https://github.com/desmondbautista/web-design-challenge">Link to Github</a>)
+	  </div>
+    </footer>
+    <!-- End of footer -->
+​
+
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+​
+</html>

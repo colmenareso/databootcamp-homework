@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>D3Times</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/d3Style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-12">
+        <h1>Data Journalism and D3</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12  col-md-9">
+        <div id="scatter">
+          <!-- We append our chart here. -->
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12  col-md-9">
+        <div class="article">
+          <h2>2014 U.S. State Data Analysis</h2>
+          <p>The chart allows to implement the visualization of multiple variables </p>
+            <ul>
+              <li>Independent variables: % Poverty or Age (Median) or household income (median)</li>
+              <li>Dependent variables: % obese population or % of smokers or % of the population without healthcare insurance</li>
+            </ul>
+          <p>The data is presented grouped by states. Please select the axes categories you want to compare. You can hover over 
+            the state markers and the chart will show the values that they represent.</p>
+          <p>The comparison of the three dependent variables vs. median household income shows some interesting trends</p>
+          <ul>
+            <li>Both % of obesity and % of smokers seems to be higher in states with lower median household income in comparison 
+              to states with higher income. The linear correlation coefficient are in the rage of 0.65-0.66, the highest values of 
+              the 3-comparison.</li>
+            <li>The % of uninsured population does not show an evident trend. States with lower household income shows relatively low
+              % of insured population (likely due the Medicaid program). On the other, Massachussetts has the lower % of insured 
+              population. This might be related to the exitence of state-level program similar to the Affordable Care Act (ACA or theso-called 
+              Obama care) scope since 2006. Texas shows the higher % of uninsured population. After the implementation of the ACA, the state
+              goverment did not expand the Medicad program target to the lower income population
+              <a href=https://www.texastribune.org/2019/09/10/texas-has-most-people-without-health-insurance-nation-again/>(please click here to see source).</a>
+              Other state slike Georgia and Mississippi also have not enacted the Medicaid expansion</i>
+            <li>The data we are showing is from 2014. Some states information have changed. For example, Loisiana reported about 8% of insured population in 2019 mainly due to reduced poverty
+              percentage and extension of the Medicaid program by the state government
+              <a href=https://www.businessreport.com/newsletters/number-of-insured-in-louisiana-goes-up-but-so-too-does-poverty-number/>(please click here to see source).</a>
+            </li>
+          </ul>
+          <p>The trends of the comparison of the 3 dependent variables vs. the % of poverty will reflect the trends that we just mentioned for
+            household income. States with lower % of poverty (therefore, higher median income) will show higher % of obesity and smokers
+          </p>
+          <p>The comparison of the 3 dependent variables vs. age median does not show major evident patterns. The % of uninsured population seems to be
+          mainly between 34 to 40 years. When selecting the % of smokers, Utah has the younger population and shows the lowest percentage of smokers, likely 
+          related to the high % of people professing the Mormon religion <a href=https://news.gallup.com/poll/167771/smoking-rate-lowest-utah-highest-kentucky.aspx>(please click here to see source)</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer-->
+  <div id="footer">
+    <p>Omar Colmenares&copy;2020</p>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
+  <script type="text/javascript" src="assets/js/app.js"></script>
+
+</body>
+
+</html>

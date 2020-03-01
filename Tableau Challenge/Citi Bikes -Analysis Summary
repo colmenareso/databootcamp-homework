@@ -1,0 +1,27 @@
+Summary: Citi Bike analysis
+
+The analysis used the monthly csv fieslf rom Citi Bikes for 2019
+
+User's profile
+
+1) 70 of the users are male
+
+2) The large age group for users of the bike system is 31-50 years old, followed by 21-30 yeras old. The proportion of age distribution seems similar regardles of the user gender
+
+3)) In general the number of users increases during April to October. As mentioned in the genral gender profile, vast majority of users are male. The number of men and women using the system almost triplicates during the peak month (August-September) compared to January-March and October-December
+
+4)As the number of user increases during the months of April to September, the customer users (with 1 or 3-day passes) show significant monthly growth percentage  compared to the subscribers (users with year round passes)
+
+Monthly and daily usage patters:
+
+1) The number of trips and the average duration of the trips show a trend to higher values during the months of April to September, showing a very seasonal pattern in 2019
+
+2) The number of rides per wekday shows larger number of trips during business days (Monday throught Friday). The number of rides during weekends is about 20% lower
+
+3) The number of trips show slight differences when Business and Weekend days are compared. During working days (Monday to Friday), the number of rides has two peaks: at about 8 am and 5 pm (time likely related to commuters going and leaving work). On the other hand, there is a period of high use between 10 am top about 7-8 pm during weekends, reflecting perhaps user riding more for enjoyoment during the weekends.
+
+4) The average duration of the rides is higher in early morning hours for both business and weekend days. The peak during working days is from midnight to about 2 pm and during weekends goes from midnight to about 4-6 am. Likely users during these peak periods need to use the service since the public transportation is not working during this period. The longer peak period during weekend days might be also related to users staying and enjoying weekend nights and going back home at early morning hours
+
+5) The average duration of the trip (min) is higher during the peak months (April to September). The difference seems to be higher during weekend days
+
+6) The stations with the larger number of rides as a starting point during weekdays is Grove Street Path. This is a large commuter train hub in Jersey City, NJ. This chart likely indicates that service is used mainly by commuters going to work during weekdays. During weekend days, Grove Street Path station is still the top station based on the number of rides as starting point. However, other stations like Hamilton Park, Harborside, Marin Light Rail. and Newport Path. This might be an indication of increasing usage by local users during weekends in comparison to week days when people from other cities commute to work

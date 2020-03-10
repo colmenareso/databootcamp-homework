@@ -1,0 +1,113 @@
+Exoplanet Machine Learning Summary
+
+=====================================================================================================================================
+SUPERVISED METHODS
+=====================================================================================================================================
+
+1) Initial model
+
+I tested different models using linear, sigmoid and poly kernels. The X values includes all numeric values, excluding 4 fields labeled 
+as flags or error to avoid possible correlated variables. I initially assessed other kernels (poly and sigmoid) and the scores were lower
+than for the linear (0.4-.5)
+
+	Training Data Score: 	0.5971771886324624
+	Testing Data Score: 	0.584096109839817
+
+2) Support Vector Machine SVM (Tunning parameters)
+
+I tested three different models using the folowing levels for:
+
+C: 1, 3, 5, 10
+Gamma: 0.0001, 0.001, 0.01, 0.1
+
+The best model resulted in the combination of C=10 and gamma = 0.0001 with a score of 0.6301686811867354
+
+	Training Data Score: 	0.6355140186915887
+	Test Data Score: 		0.6218535469107551
+
+The confusion matrix metrics yielded the following values:
+
+                precision    recall  f1-score   support
+
+     CANDIDATE       0.43      0.21      0.28       422
+     CONFIRMED       0.51      0.71      0.59       450
+FALSE POSITIVE       0.74      0.78      0.76       876
+
+      accuracy                           0.62      1748
+     macro avg       0.56      0.57      0.55      1748
+  weighted avg       0.61      0.62      0.60      1748
+  
+
+3) Grid Search and Random Forest (mutiple decision trees)
+
+The scores using Grid Search show a significant increase:
+
+	Training Data Score: 	1.0
+	Test Data Score: 		0.7643020594965675
+	
+I used three models for Random Forest that were defined by:
+
+n-estimators (number of trees): 50, 100 and 300
+max-depth (maximum number of levels in each tree): 50, 100, 200
+
+The best score (0.7571971488658773) came from the combination of n_estimator = 100 and max_depth = 300.
+
+The scores were:
+
+	Training Data Score: 	1.0
+	Test Data Score : 		0.7717391304347826
+
+The confusion matrix metrics values were:
+
+                precision    recall  f1-score   support
+
+     CANDIDATE       0.64      0.50      0.56       422
+     CONFIRMED       0.77      0.83      0.80       450
+FALSE POSITIVE       0.82      0.87      0.84       876
+
+      accuracy                           0.77      1748
+     macro avg       0.74      0.73      0.74      1748
+  weighted avg       0.76      0.77      0.76      1748
+  
+  4) KNN model
+  
+The score and number of neghbours showed the following values:
+
+k: 1, Train/Test Score: 1.000/0.552
+k: 3, Train/Test Score: 0.765/0.589
+k: 5, Train/Test Score: 0.719/0.596
+k: 7, Train/Test Score: 0.700/0.609
+k: 9, Train/Test Score: 0.690/0.615
+k: 11, Train/Test Score: 0.678/0.613
+k: 13, Train/Test Score: 0.678/0.620
+k: 15, Train/Test Score: 0.674/0.620
+k: 17, Train/Test Score: 0.669/0.614
+k: 19, Train/Test Score: 0.665/0.622
+
+The best level seems to be k = 11 with a score of 0.613
+
+=====================================================================================================================================
+UNSUPERVISED METHODS
+=====================================================================================================================================
+
+I ran tow models:
+
+	5) Neural network
+	6) Deep learning with input layer (15 inputs), 4 hidden layers (with 10 neurons each) and 3 outputs (Candidate, False Positive, Confirmed)
+
+The accracy of the two models was about 0.64 to 0.67, slight increase to supervised methods (SVM and KNN). However the loss function values were in
+the higher than the accuracy (>0.70).	
+  
+=====================================================================================================================================
+CONCLUSIONS
+=====================================================================================================================================
+
+By using SVM the scores for the training and test datasets increased from 0.65-0.66 to values near to 0.66 for both training and test datasets.
+By using Grid Search, the training data comes to be very close 1, showing a likely overfit of the model. Tge accuracy of the model is 77% compared to the 66% for the SVM.
+By using KNN, the score is 0.613, still lower than the SVM model.
+Unsupervised methods showed a slight imporvement in the accuracy compared to supervised methods (SVM and KNN). However, the loss function values were higher than accuracy,
+indicating the uncertanty of the estimation or prediction.
+
+Considering the likelyhood of overfitting in the Random Forest Model, the other supervised and unsupervised models offer a similar range of accuracy and scores for training and
+test data sets. These scores (at about 0.66) seems to indicate that the model is not optimal for the prediction of exoplanets based on the 15 attributes that were selected.
+
